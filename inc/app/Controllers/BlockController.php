@@ -42,8 +42,7 @@ final class BlockController extends Controller {
     /**
      * Register all blocks.
      *
-     * This function will scan the build/blocks folder, and register all available blocks.
-     * It assumes any folder in this directory is a wordpress block to register
+     * Registers all blocks from the block-config['register']
      *
      * @since 0.1.0
      */
