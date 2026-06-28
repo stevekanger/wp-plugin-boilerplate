@@ -24,8 +24,11 @@ function replaceInFiles(
  * Updates the namespaces in php files
  */
 export default function updatePhpNamespaces(phpNamespace: string) {
-  const filesInc = getDirectoryFiles(getRootDir('/inc/app'), true);
-  const filesTestsUnit = getDirectoryFiles(getRootDir('/tests/php/unit'), true);
+  const filesInc = getDirectoryFiles(getRootDir('inc', 'app'), true);
+  const filesTestsUnit = getDirectoryFiles(
+    getRootDir('tests', 'php', 'unit'),
+    true,
+  );
 
   [filesInc, filesTestsUnit].forEach((files) => {
     replaceInFiles(files, /WpPluginBoilerplate/g, phpNamespace);

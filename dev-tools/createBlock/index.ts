@@ -177,10 +177,8 @@ async function createBlock() {
       throw new Error(`Template directory ${templateDir} doesn't exist`);
     }
 
-    const blocksSrc = path.join(getRootDir(getEnv('WP_SOURCE_PATH')), 'blocks');
-
     // specify the output dir in src/blocks/slug
-    const outputDir = path.join(blocksSrc, slug);
+    const outputDir = getRootDir(getEnv('WP_SOURCE_PATH'), 'blocks', slug);
 
     // check if output directory exists if not make it else warn user and return
     if (!(await dirExists(outputDir))) {

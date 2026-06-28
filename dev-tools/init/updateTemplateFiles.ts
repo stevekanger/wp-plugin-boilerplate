@@ -1,8 +1,9 @@
-import { TemplateVars } from './types';
-import getDirectoryFiles from './getDirectoryFiles';
-import getRootDir from '../utils/getRootDir';
 import fs from 'fs';
+import path from 'path';
 import Mustache from 'mustache';
+import getRootDir from '../utils/getRootDir';
+import getDirectoryFiles from './getDirectoryFiles';
+import { TemplateVars } from './types';
 
 /**
  * Writes a mustache file to its desired location
@@ -31,15 +32,15 @@ function writeTemplateFile(
  */
 export default function updateTemplateFiles(templateVars: TemplateVars) {
   const templateFiles = getDirectoryFiles(
-    getRootDir('/dev-tools/init/templates'),
+    getRootDir('dev-tools', 'init', 'templates'),
     false,
   );
 
   templateFiles.forEach((template) => {
     if (template === 'entry-file.php.mustache') {
       writeTemplateFile(
-        getRootDir(`/dev-tools/init/templates/${template}`),
-        getRootDir(`/${templateVars.slug}.php`),
+        path.join(__dirname, 'templates', template),
+        getRootDir(`${templateVars.slug}.php`),
         templateVars,
       );
 
@@ -49,8 +50,8 @@ export default function updateTemplateFiles(templateVars: TemplateVars) {
     const filename = template.replace('.mustache', '');
 
     writeTemplateFile(
-      getRootDir(`/dev-tools/init/templates/${template}`),
-      getRootDir(`/${filename}`),
+      path.join(__dirname, 'templates', template),
+      getRootDir(filename),
       templateVars,
     );
   });
