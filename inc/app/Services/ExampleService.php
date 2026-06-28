@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Services;
+namespace WpPluginBoilerplate\Services;
 
-use PluginNamespace\Core\Service;
+use WpPluginBoilerplate\Core\Service;
 
 defined('ABSPATH') || exit;
 

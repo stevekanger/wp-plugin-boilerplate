@@ -19,11 +19,11 @@ declare(strict_types=1);
  * Requires Plugins:
  */
 
-namespace PluginNamespace;
+namespace WpPluginBoilerplate;
 
-use PluginNamespace\Core\Container;
-use PluginNamespace\Core\Plugin;
-use PluginNamespace\Core\PluginConfig;
+use WpPluginBoilerplate\Core\Container;
+use WpPluginBoilerplate\Core\Plugin;
+use WpPluginBoilerplate\Core\PluginConfig;
 
 defined('ABSPATH') || exit;
 

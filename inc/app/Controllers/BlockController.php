@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Controllers;
+namespace WpPluginBoilerplate\Controllers;
 
-use PluginNamespace\Core\Controller;
-use PluginNamespace\Core\PluginConfig;
+use WpPluginBoilerplate\Core\Controller;
+use WpPluginBoilerplate\Core\PluginConfig;
 
 defined('ABSPATH') || exit;
 

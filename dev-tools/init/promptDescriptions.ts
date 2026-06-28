@@ -19,7 +19,7 @@ This will be used for all your local php file namespacing.
 Example:
 <?php
 
-namespace PluginNamespace;
+namespace WpPluginBoilerplate;
 ============================================================`;
 
 export const phpVersionDescription = `

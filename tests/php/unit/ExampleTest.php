@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Tests\Unit;
+namespace WpPluginBoilerplate\Tests\Unit;
 
-use PluginNamespace\Utils\PluginUtils;
 use WP_UnitTestCase;
+use WpPluginBoilerplate\Utils\PluginUtils;
 
 /**
  * ExampleTest class.

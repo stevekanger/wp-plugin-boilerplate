@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Models;
+namespace WpPluginBoilerplate\Models;
 
-use PluginNamespace\Core\Model;
+use WpPluginBoilerplate\Core\Model;
 
 defined('ABSPATH') || exit;
 

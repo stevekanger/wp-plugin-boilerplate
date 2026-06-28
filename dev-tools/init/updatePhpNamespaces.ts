@@ -28,6 +28,6 @@ export default function updatePhpNamespaces(phpNamespace: string) {
   const filesTestsUnit = getDirectoryFiles(getRootDir('/tests/php/unit'), true);
 
   [filesInc, filesTestsUnit].forEach((files) => {
-    replaceInFiles(files, /PluginNamespace/g, phpNamespace);
+    replaceInFiles(files, /WpPluginBoilerplate/g, phpNamespace);
   });
 }

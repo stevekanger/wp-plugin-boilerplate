@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Core;
+namespace WpPluginBoilerplate\Core;
 
 /**
  * Container for all services.
