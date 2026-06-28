@@ -1,0 +1,26 @@
+# Leave the node modules alone
+node_modules/
+
+# For you mac users
+.DS_Store
+
+# Leave out all build and vendor folders
+/build/
+/dist/
+/vendor/
+
+# No environment variables or local config files
+/.env
+/config.override.js
+/docker-compose.override.yml
+
+# No wordpress test suite
+/tests/wordpress-tests-phpunit
+
+# Etc.
+/.phpunit.result.cache
+/.php-cs-fixer.cache
+/debug.log
+
+
+
