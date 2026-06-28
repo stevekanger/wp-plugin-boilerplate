@@ -108,7 +108,7 @@ The script will create your block files. Block files will use typescript by defa
 Alternatively you can just use the wordpress `@wordpress/create-block` interactive script if you just want regular `.js` files or prefer the interactive script. Just make sure you point your `--target-dir` to the `src/blocks` folder.
 
 ```bash
-npx @wordpress/create-block@latest --no-plugin --target-dir=resources/blocks/my-block
+npx @wordpress/create-block@latest --no-plugin --target-dir=src/blocks/my-block
 
 ```
 
