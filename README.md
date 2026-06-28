@@ -88,6 +88,8 @@ npm run archive:dev
 
 ## Blocks
 
+### Create a block
+
 Create a block in the `src/blocks` directory with either of the following methods.
 
 Use the `create:block` npm script supplied. Block information can be controlled in the `dev-tools/config.ts` file. Any additional `block.json` defaults may be placed in `createBlock.json`.
@@ -110,11 +112,27 @@ npx @wordpress/create-block@latest --no-plugin --target-dir=resources/blocks/my-
 
 ```
 
+### Register a block
+
+Once you have successfully created a block all you have to do is add the block slug to the `register` array in `inc/config/block-config.php`. This array assumes your blocks source files are located in the `src/blocks` folder and built to `build/blocks` folder.
+
 ## Testing
 
 Js testing is done with `vitest` and php testig is done with `phpunit` and the wordpress phpunit test suite.
 
-The wordpress testing suite uses the lates version from `https://develop.svn.wordpress.org/tags`. It will be installed via custom composer repository.
+for js run
+
+```bash
+npm run test
+```
+
+for php run
+
+```bash
+composer test
+```
+
+The wordpress testing suits are installed from `https://develop.svn.wordpress.org/tags`. It will be installed via custom composer repository and use whatever wordpress version you picked when running the init script.
 
 ## Updating php and wordpress versions
 
