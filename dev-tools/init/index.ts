@@ -1,6 +1,4 @@
 import fs from 'fs';
-import Mustache from 'mustache';
-import path from 'path';
 import commandLinePrompt from '../utils/commandLinePrompt';
 import getRootDir from '../utils/getRootDir';
 import {
@@ -13,7 +11,8 @@ import {
   wordpressVersionDescription,
 } from './promptDescriptions';
 import { TemplateVars } from './types';
-import updateNamespaces from './updateNamespaces';
+import updatePhpNamespaces from './updatePhpNamespaces';
+import updateTemplateFiles from './updateTemplateFiles';
 
 enum PromptColors {
   black = 30,
@@ -84,30 +83,6 @@ async function prompt(
 }
 
 /**
- * Writes a mustache file to its desired location
- *
- * @param template The template file to use. Not the full path just the filename.
- * @param outputFile Full path of the output file
- * @param templateVars The full template variables object
- */
-async function writeTemplateFile(
-  template: string,
-  outputFile: string,
-  templateVars: TemplateVars,
-) {
-  const templateContent = fs.readFileSync(
-    path.join(__dirname, 'templates', template),
-    'utf8',
-  );
-
-  const renderedTemplate = Mustache.render(templateContent, templateVars);
-
-  if (renderedTemplate) {
-    fs.writeFileSync(outputFile, renderedTemplate, 'utf8');
-  }
-}
-
-/**
  * Starts the init process
  */
 async function main() {
@@ -151,12 +126,14 @@ async function main() {
     );
     const slug = title.toLowerCase().replaceAll(' ', '-');
     const prefix = title.toLowerCase().replaceAll(' ', '_');
+    const authorShort = author.toLowerCase().replaceAll(' ', '');
 
     const templateVars: TemplateVars = {
       title,
       slug,
       prefix,
       author,
+      authorShort,
       wordpressVersion,
       phpVersion,
       phpNamespace,
@@ -169,66 +146,16 @@ async function main() {
       PromptColors.green,
     );
 
+    updateTemplateFiles(templateVars);
+    updatePhpNamespaces(phpNamespace);
+
+    // Remove unneeded files and folders
     try {
       fs.unlinkSync(getRootDir('/wp-plugin-boilerplate.php'));
       fs.rmSync(getRootDir('/.git'), { recursive: true });
     } catch (err) {
       console.log(err);
     }
-
-    // Create the entry file
-    writeTemplateFile(
-      'entry-file.php.mustache',
-      getRootDir(`/${slug}.php`),
-      templateVars,
-    );
-
-    // create package.json
-    writeTemplateFile(
-      'package.json.mustache',
-      getRootDir(`/package.json`),
-      templateVars,
-    );
-
-    // create composer.json
-    writeTemplateFile('composer.json.mustache', getRootDir(`/composer.json`), {
-      ...templateVars,
-      author: author.toLowerCase().replaceAll(' ', ''),
-    });
-
-    // create .env
-    writeTemplateFile('.env.mustache', getRootDir(`/.env`), templateVars);
-
-    // create .example.env
-    writeTemplateFile(
-      '.env.mustache',
-      getRootDir(`/.example.env`),
-      templateVars,
-    );
-
-    // create readme.txt
-    writeTemplateFile(
-      'readme.txt.mustache',
-      getRootDir(`/readme.txt`),
-      templateVars,
-    );
-
-    // create README.md
-    writeTemplateFile(
-      'README.md.mustache',
-      getRootDir(`/README.md`),
-      templateVars,
-    );
-
-    // create dev-tools/config.ts
-    writeTemplateFile(
-      'config.ts.mustache',
-      getRootDir(`/dev-tools/config.ts`),
-      templateVars,
-    );
-
-    // Update the namespaces
-    updateNamespaces(phpNamespace);
 
     consoleColor(PromptColors.green, '\nFinished');
   } catch (err) {

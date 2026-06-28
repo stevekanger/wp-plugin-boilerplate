@@ -3,6 +3,7 @@ export interface TemplateVars {
   slug: string;
   prefix: string;
   author: string;
+  authorShort: string;
   wordpressVersion: string;
   phpVersion: string;
   phpNamespace: string;

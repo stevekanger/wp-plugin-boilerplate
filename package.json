@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/archiver": "^8.0.0",
     "@types/mustache": "^4.2.6",
+    "@types/node": "^20.19.43",
     "@types/wordpress__block-editor": "^15.0.6",
     "@types/wordpress__components": "^23.8.0",
     "@types/wordpress__element": "^2.14.1",

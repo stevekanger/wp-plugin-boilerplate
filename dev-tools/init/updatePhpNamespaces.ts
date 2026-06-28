@@ -1,5 +1,6 @@
 import fs from 'fs';
 import getRootDir from '../utils/getRootDir';
+import getDirectoryFiles from './getDirectoryFiles';
 
 /**
  * Find and replace for an array of files
@@ -20,31 +21,11 @@ function replaceInFiles(
 }
 
 /**
- * Gets the files from a directory.
- *
- * @param directory The directory to search
- */
-function getFilesFromDirectory(directory: string): string[] {
-  return fs
-    .readdirSync(directory, { recursive: true })
-    .filter((item) => {
-      if (fs.statSync(`${directory}/${item}`).isDirectory()) {
-        return false;
-      }
-
-      return true;
-    })
-    .map((item) => {
-      return `${directory}/${item}`;
-    });
-}
-
-/**
  * Updates the namespaces in php files
  */
-export default function updateNamespaces(phpNamespace: string) {
-  const filesInc = getFilesFromDirectory(getRootDir('/inc/app'));
-  const filesTestsUnit = getFilesFromDirectory(getRootDir('/tests/php/unit'));
+export default function updatePhpNamespaces(phpNamespace: string) {
+  const filesInc = getDirectoryFiles(getRootDir('/inc/app'), true);
+  const filesTestsUnit = getDirectoryFiles(getRootDir('/tests/php/unit'), true);
 
   [filesInc, filesTestsUnit].forEach((files) => {
     replaceInFiles(files, /PluginNamespace/g, phpNamespace);
