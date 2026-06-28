@@ -33,7 +33,7 @@ npm install
 Then you can run the init script to bootstrap your plugin. This will prompt you for your information.
 
 ```bash
-npx ts-node ./dev-tools/init/index.ts
+npx ts-node ./dev-tools/init
 
 ```
 
