@@ -46,7 +46,7 @@ composer dump-autoload
 
 ```
 
-And now your plugin is all setup
+And now your plugin is set up. You still need to go your entry php file and finish filling out the header with the rest of your information.
 
 ## Usage
 
