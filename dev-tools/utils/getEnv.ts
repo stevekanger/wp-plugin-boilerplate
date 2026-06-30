@@ -2,11 +2,11 @@ import { config } from 'dotenv';
 
 config({ quiet: true });
 
-export default function getEnv(variable: string) {
-  const envVar = process.env[variable];
+export default function getEnv(val: string, defaultVal?: string): string {
+  const envVar = process.env[val] ?? defaultVal;
 
-  if (!envVar) {
-    throw new Error(`${variable} not set in .env`);
+  if (envVar === undefined) {
+    throw new Error(`${val} not set in .env`);
   }
 
   return envVar;

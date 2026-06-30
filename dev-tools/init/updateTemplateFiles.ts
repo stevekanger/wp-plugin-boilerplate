@@ -37,7 +37,13 @@ export default function updateTemplateFiles(templateVars: TemplateVars) {
   );
 
   templateFiles.forEach((template) => {
-    if (template === 'entry-file.php.mustache') {
+    if (template === 'wp-plugin-boilerplate.php.mustache') {
+      if (templateVars.slug !== 'wp-plugin-boilerplate') {
+        try {
+          fs.unlinkSync(getRootDir('wp-plugin-boilerplate.php'));
+        } catch (err) { }
+      }
+
       writeTemplateFile(
         path.join(__dirname, 'templates', template),
         getRootDir(`${templateVars.slug}.php`),

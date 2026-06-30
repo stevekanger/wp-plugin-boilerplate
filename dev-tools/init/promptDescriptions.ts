@@ -1,7 +1,8 @@
 import { TemplateVars } from './types';
 
 export const initDescription = `
-Caution: this will overwrite your existing files.`;
+This script should only be run to initialize a project.
+Running this script at any other time can be destructive.`;
 
 export const authorDescription = `
 ============================================================
