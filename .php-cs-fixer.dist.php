@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/dev-tools/php-cs-fixer/ArrayFormatFixer.php';
+use SkPhpCsFixers\Fixer\ArrayNotation\ArrayFormatFixer;
+
+require __DIR__ . '/vendor/autoload.php';
 
 $rules = [
     // Docs https://cs.symfony.com/doc/rules/index.html
@@ -21,6 +23,10 @@ $rules = [
         'operators' => [
             '=>' => 'single_space',
         ],
+    ],
+    // Dont change alternative syntax in html
+    'no_alternative_syntax' => [
+        'fix_non_monolithic_code' => false,
     ],
     // Single line concat space
     'concat_space' => [
@@ -41,23 +47,25 @@ $rules = [
     'single_line_throw' => false,
     // Replace superfluous else if
     'no_superfluous_elseif' => true,
+    // Align php doc to the left
+    'phpdoc_align' => [
+        'align' => 'left',
+    ],
     // Allow sentences in phpdoc descriptions
     'phpdoc_annotation_without_dot' => false,
     // Set statements that require blank lines before
     'blank_line_before_statement' => [
         'statements' => ['break', 'continue', 'declare', 'if', 'return', 'throw', 'try'],
     ],
-    // Custom fixer
+    // Custom fixers
     'array_indentation' => false,
-    'Custom/array_format' => true,
+    'SkPhpCsFixers/array_format' => true,
 ];
 
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
-    ->notPath('inc/cache')
     ->notName('*.blade.php')
     ->exclude([
-        'cache',
         'vendor',
         'build',
         'node_modules',
@@ -66,7 +74,7 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRules($rules)
     ->setRiskyAllowed(true)
-    ->setFinder($finder)
     ->registerCustomFixers([
-        new CustomPhpCsFixer\ArrayFormatFixer(),
-    ]);
+        new ArrayFormatFixer(),
+    ])
+    ->setFinder($finder);

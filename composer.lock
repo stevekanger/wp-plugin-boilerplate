@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8177400a2eaa4d34544d15425e8383f3",
+    "content-hash": "ea60477f65a2b3f1da0043b4a9553bfb",
     "packages": [],
     "packages-dev": [
         {
@@ -1889,6 +1889,51 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
+        },
+        {
+            "name": "stevekanger/sk-php-cs-fixers",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevekanger/sk-php-cs-fixers.git",
+                "reference": "fb887b46442999d1aee4bf36a19fcd4a4b7e9f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevekanger/sk-php-cs-fixers/zipball/fb887b46442999d1aee4bf36a19fcd4a4b7e9f53",
+                "reference": "fb887b46442999d1aee4bf36a19fcd4a4b7e9f53",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "php-cs-fixer/phpunit-constraint-isidenticalstring": "^1.8",
+                "phpunit/phpunit": "^9.6.34 || ^10.5.63 || ^11.5.55"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SkPhpCsFixers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "stevekanger",
+                    "email": "dev.stevekanger@gmail.com"
+                }
+            ],
+            "description": "Custom fixers for php-cs-fixer.",
+            "support": {
+                "issues": "https://github.com/stevekanger/sk-php-cs-fixers/issues",
+                "source": "https://github.com/stevekanger/sk-php-cs-fixers/tree/v0.1.2"
+            },
+            "time": "2026-08-04T21:41:20+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
