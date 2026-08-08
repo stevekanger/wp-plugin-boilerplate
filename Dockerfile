@@ -1,13 +1,16 @@
+# Get official php docker image
 ARG PHP_VERSION
 ARG WORDPRESS_VERSION
-FROM wordpress:${WORDPRESS_VERSION} AS wordpress_source
 FROM php:${PHP_VERSION}-apache
+
+# Redefine wordpress arg and working dir
+ARG WORDPRESS_VERSION
 WORKDIR /var/www/html
 
 # Install system dependencies and PHP extensions
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends ghostscript; \
+    apt-get install -y --no-install-recommends ghostscript curl; \
     rm -rf /var/lib/apt/lists/*
 
 # Install GD and Imagick for image processing (required by SEO plugins like Rank Math, Yoast)
@@ -24,8 +27,18 @@ RUN docker-php-ext-install mysqli
 # Enable Apache modules
 RUN a2enmod rewrite expires
 
-COPY --from=wordpress_source /usr/src/wordpress /usr/src/wordpress
-COPY --from=wordpress_source /usr/local/bin/docker-entrypoint.sh /usr/local/bin/
+# Pull in wordpress
+RUN mkdir -p /usr/src/wordpress && \
+    curl -fsL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz | \
+    tar -xz -C /usr/src/wordpress --strip-components=1
+
+# Grab the wordpress entrypoint.sh and wp-docker-config.php from github
+ADD https://raw.githubusercontent.com/docker-library/wordpress/master/wp-config-docker.php /usr/src/wordpress/wp-config-docker.php
+ADD https://raw.githubusercontent.com/docker-library/wordpress/master/docker-entrypoint.sh /usr/local/bin/
+
+# Set permissions for wordpress and entrypoint.sh
 RUN chown -R www-data:www-data /usr/src/wordpress
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
