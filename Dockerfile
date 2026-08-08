@@ -1,9 +1,8 @@
-# Get official php docker image
+# Stage 1: Get the official php apache image from dockerhub
 ARG PHP_VERSION
-ARG WORDPRESS_VERSION
 FROM php:${PHP_VERSION}-apache
 
-# Redefine wordpress arg and working dir
+# Stage 2: Install wordpress and dependencies
 ARG WORDPRESS_VERSION
 WORKDIR /var/www/html
 
@@ -27,16 +26,16 @@ RUN docker-php-ext-install mysqli
 # Enable Apache modules
 RUN a2enmod rewrite expires
 
-# Pull in wordpress
+# Install in wordpress
 RUN mkdir -p /usr/src/wordpress && \
     curl -fsL https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz | \
     tar -xz -C /usr/src/wordpress --strip-components=1
 
-# Grab the wordpress entrypoint.sh and wp-docker-config.php from github
+# Install the wordpress entrypoint.sh and wp-docker-config.php from github docker library
 ADD https://raw.githubusercontent.com/docker-library/wordpress/master/wp-config-docker.php /usr/src/wordpress/wp-config-docker.php
 ADD https://raw.githubusercontent.com/docker-library/wordpress/master/docker-entrypoint.sh /usr/local/bin/
 
-# Set permissions for wordpress and entrypoint.sh
+# Set permissions for wordpress directory and entrypoint.sh
 RUN chown -R www-data:www-data /usr/src/wordpress
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
