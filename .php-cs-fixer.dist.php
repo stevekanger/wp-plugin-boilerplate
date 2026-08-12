@@ -53,6 +53,8 @@ $rules = [
     ],
     // Allow sentences in phpdoc descriptions
     'phpdoc_annotation_without_dot' => false,
+    // Require php doc summary to end with punctuation
+    'phpdoc_summary' => false,
     // Set statements that require blank lines before
     'blank_line_before_statement' => [
         'statements' => ['break', 'continue', 'declare', 'if', 'return', 'throw', 'try'],
