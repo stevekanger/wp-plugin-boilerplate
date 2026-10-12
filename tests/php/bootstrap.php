@@ -6,21 +6,21 @@ $root_dir = dirname(__FILE__, 3);
 $env = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 $env->load();
 
-$entry_file_name = $_ENV['ENTRY_FILE'];
+$entry_file_name = $_ENV['SLUG'] . '.php';
 $entry_file_path = $root_dir . '/' . $entry_file_name;
 $wordpress_tests_phpunit = $root_dir . '/vendor/wordpress/wordpress-tests-phpunit';
 
 // Make sure the entry file exists
 if (!file_exists($entry_file_path)) {
-    exit('Entry file ' . $entry_file . ' does not exist.');
+    exit('Entry file ' . $entry_file_name . ' does not exist.');
 }
 
 // Make sure the wordpress testing lib is loaded
 if (!file_exists($wordpress_tests_phpunit . '/includes/functions.php')) {
-    exit('Wordpress test suite missing. Please run the setup script to install the Wordpress phpunit test suite.');
+    exit('Wordpress test suite not found. Make sure you have it installed via composer.');
 }
 
-// Autoload and require test funcitons
+// Autoload and require test functions
 require_once $root_dir . '/vendor/autoload.php';
 require_once $wordpress_tests_phpunit . '/includes/functions.php';
 

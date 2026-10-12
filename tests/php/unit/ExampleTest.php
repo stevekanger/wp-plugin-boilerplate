@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate\Tests\Unit;
 
-use WP_UnitTestCase;
-use WpPluginBoilerplate\Utils\PluginUtils;
-
 /**
  * ExampleTest class.
  *
@@ -21,8 +18,6 @@ final class ExampleTest extends \WP_UnitTestCase {
      * @since 0.1.0
      */
     public function testUsersTableExists() {
-        PluginUtils::debug('Yay! A test has been run.');
-
         global $wpdb;
         $table_name = $wpdb->prefix . 'users';
         $this->assertEquals(
