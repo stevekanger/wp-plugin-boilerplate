@@ -1,0 +1,71 @@
+import getEnv from './utils/getEnv';
+
+/**
+ * Configuration for development scritps.
+ *
+ * @since 0.1.0
+ */
+const config = {
+  /**
+   * Wordpress blocks configuration
+   *
+   * Change your defaults here. Any additional defaults you want to add to
+   * the block.json can be added to createBlock.json.
+   *
+   * @since 0.1.0
+   */
+  blocks: {
+    createBlock: {
+      namespace: '{{slug}}',
+      json: {
+        textdomain: '{{slug}}',
+      },
+    },
+  },
+
+  /**
+   * Archiver configs
+   *
+   * Any additional files added that need to be included in the shipped
+   * plugin should be added to the includedItems array.
+   *
+   * @since 0.1.0
+   */
+  archive: {
+    includedItemsPlugin: [
+      getEnv('ENTRY_FILE'),
+      'assets',
+      'build',
+      'inc',
+      'vendor',
+      'license.txt',
+      'readme.txt',
+    ],
+    includedItemsDev: [
+      getEnv('ENTRY_FILE'),
+      'assets',
+      'dev-tools',
+      'inc',
+      'src',
+      'tests',
+      '.example.env',
+      '.gitignore',
+      '.php-cs-fixer.dist.php',
+      '.prettierignore',
+      '.prettierrc',
+      'composer.json',
+      'docker-compose.yml',
+      'Dockerfile',
+      'license.txt',
+      'package.json',
+      'phpunit.xml',
+      'README.md',
+      'readme.txt',
+      'tsconfig.json',
+      'vitest.config.ts',
+      'webpack.config.js',
+    ],
+  },
+};
+
+export default config;

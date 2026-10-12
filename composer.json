@@ -1,0 +1,41 @@
+{
+  "name": "stevekanger/wp-plugin-boilerplate",
+  "version": "0.1.0",
+  "license": "GPL-2.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "PluginNamespace\\": "inc/app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PluginNamespace\\Tests\\": "tests/php/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "wordpress/wordpress-tests-phpunit",
+        "version": "7.0",
+        "source": {
+          "url": "https://develop.svn.wordpress.org/tags/7.0/tests/",
+          "type": "svn",
+          "reference": "phpunit/"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": ">=8.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6.34",
+    "yoast/phpunit-polyfills": "^4.0",
+    "vlucas/phpdotenv": "^5.6",
+    "wordpress/wordpress-tests-phpunit": "7.0"
+  },
+  "scripts": {
+    "test": "./dev-tools/docker/run-tests.sh"
+  }
+}
