@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Core;
+namespace WpPluginBoilerplate\Core;
 
-use PluginNamespace\Traits\WpdbTrait;
+use WpPluginBoilerplate\Traits\WpdbTrait;
 
 defined('ABSPATH') || exit;
 

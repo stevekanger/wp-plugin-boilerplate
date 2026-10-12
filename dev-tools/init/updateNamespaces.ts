@@ -27,5 +27,5 @@ export default function updateNamespaces(phpNamespace: string) {
       return getRootDir(`/inc/app/${item}`);
     });
 
-  replaceInFiles(files, /PluginNamespace/g, phpNamespace);
+  replaceInFiles(files, /WpPluginBoilerplate/g, phpNamespace);
 }

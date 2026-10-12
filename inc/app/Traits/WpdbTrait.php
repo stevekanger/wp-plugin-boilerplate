@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Traits;
+namespace WpPluginBoilerplate\Traits;
 
 defined('ABSPATH') || exit;
 

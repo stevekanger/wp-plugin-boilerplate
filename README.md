@@ -25,7 +25,7 @@ git clone https://github.com/stevekanger/wp-plugin-boilerplate
 
 There are a couple of things you need to change for every new plugin.
 
-You need to change all of the namespaces from `PluginNamespace` to your desired namespace. Most editors you an do a simple find and replace on all. Next go to `package.json` and change the name and `composer.json` file and change the name there as well and if you haven't already the namespace too. Then you can run.
+You need to change all of the namespaces from `WpPluginBoilerplate` to your desired namespace. Most editors you an do a simple find and replace on all. Next go to `package.json` and change the name and `composer.json` file and change the name there as well and if you haven't already the namespace too. Then you can run.
 
 Now you can run
 

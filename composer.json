@@ -4,12 +4,12 @@
   "license": "GPL-2.0-or-later",
   "autoload": {
     "psr-4": {
-      "PluginNamespace\\": "inc/app/"
+      "WpPluginBoilerplate\\": "inc/app/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "PluginNamespace\\Tests\\": "tests/php/"
+      "WpPluginBoilerplate\\Tests\\": "tests/php/"
     }
   },
   "repositories": [

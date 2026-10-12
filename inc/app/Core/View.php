@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Core;
+namespace WpPluginBoilerplate\Core;
 
 /**
  * Create a view from template part.

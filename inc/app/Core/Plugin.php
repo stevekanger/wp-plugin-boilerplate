@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PluginNamespace\Core;
+namespace WpPluginBoilerplate\Core;
 
-use PluginNamespace\Controllers\AssetController;
-use PluginNamespace\Controllers\BlockController;
+use WpPluginBoilerplate\Controllers\AssetController;
+use WpPluginBoilerplate\Controllers\BlockController;
 
 defined('ABSPATH') || exit;
 
