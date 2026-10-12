@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate\Controllers;
 
-use WpPluginBoilerplate\Core\Controller;
-use WpPluginBoilerplate\Core\PluginConfig;
+use WpPluginBoilerplate\Config\AppConfig;
+use WpPluginBoilerplate\Core\AbstractController;
 
 defined('ABSPATH') || exit;
 
@@ -16,7 +16,10 @@ defined('ABSPATH') || exit;
  *
  * @since 0.1.0
  */
-final class BlockController extends Controller {
+final class BlockController extends AbstractController {
+    // Add any block slugs you want to register here
+    private const REGISTERED_BLOCKS = [];
+
     /**
      * Register block hooks.
      *
@@ -33,8 +36,8 @@ final class BlockController extends Controller {
      *
      * @since 0.1.0
      */
-    public function register_block(string $slug) {
-        $blocks_dir = PluginConfig::root_dir('/build/blocks/');
+    public function register_block(string $slug): void {
+        $blocks_dir = AppConfig::root_dir('/build/blocks/');
         $block_path = $blocks_dir . $slug;
         register_block_type($block_path);
     }
@@ -42,15 +45,12 @@ final class BlockController extends Controller {
     /**
      * Register all blocks.
      *
-     * This function will scan the build/blocks folder, and register all available blocks.
-     * It assumes any folder in this directory is a wordpress block to register
+     * Registers all blocks from the block-config['register']
      *
      * @since 0.1.0
      */
     public function register_all_blocks(): void {
-        $block_slugs = PluginConfig::config('block-config')['register'];
-
-        foreach ($block_slugs as $slug) {
+        foreach (self::REGISTERED_BLOCKS as $slug) {
             $this->register_block($slug);
         }
     }

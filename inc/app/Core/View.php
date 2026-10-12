@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate\Core;
 
+use WpPluginBoilerplate\Config\AppConfig;
+
 /**
  * Create a view from template part.
  *
@@ -17,7 +19,7 @@ final class View {
     /**
      * Construct the view object attributes.
      *
-     * @param string $view The blade template
+     * @param string $view The template file from the views folder without .php extension
      * @param mixed  $data Any data you want passed to the view (Note: this data will be extracted to variables)
      *
      * @since 0.1.0
@@ -28,7 +30,7 @@ final class View {
 
         extract($data);
         ob_start();
-        include PluginConfig::root_dir("/inc/views/{$view}.php");
+        include AppConfig::root_dir("/inc/views/{$view}.php");
         $this->rendered = ob_get_clean();
     }
 
@@ -55,7 +57,7 @@ final class View {
      *
      * @since 0.1.0
      */
-    public function get_view(): string {
+    public function view(): string {
         return $this->view;
     }
 
@@ -64,7 +66,7 @@ final class View {
      *
      * @since 0.1.0
      */
-    public function get_data(): mixed {
+    public function data(): mixed {
         return $this->data;
     }
 }

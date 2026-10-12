@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
-namespace WpPluginBoilerplate\Utils;
+namespace WpPluginBoilerplate\Core;
 
 defined('ABSPATH') || exit;
 
 /**
- * PluginUtils class.
+ * Logger class.
  *
- * Where static utility function live
+ * Utility class for logging text to files.
  *
  * @since 0.1.0
  */
-final class PluginUtils {
+final class Logger {
     /**
      * Log to the debug.log file.
      *
      * @param mixed ...$items Any item you want to log to the log file
      *
-     * @return void
-     *
      * @since 0.1.0
      */
-    public static function debug(mixed ...$items) {
+    public static function debug(mixed ...$items): void {
         if (true === \WP_DEBUG) {
             $hr_thick = "\n===========================================================================\n";
             $hr_thin = "\n---------------------------------------------------------------------------\n";

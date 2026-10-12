@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 /**
- * Plugin Name: Wordpress Plugin Boilerplate
+ * Plugin Name: Wp Plugin Boilerplate
  * Plugin Uri:
- * Author:
+ * Author: Steve Kanger
  * Author URI:
- * Description:
+ * Description: Wp plugin boilerplate.
  * Version: 0.1.0
- * Requires at least: 7.0
- * Tested up to: 7.0
+ * Requires at least: 7.1.3
+ * Tested up to: 7.1.3
  * Requires PHP: 8.3
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,24 +21,19 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate;
 
+use WpPluginBoilerplate\Config\AppConfig;
+use WpPluginBoilerplate\Controllers\AssetController;
+use WpPluginBoilerplate\Controllers\BlockController;
 use WpPluginBoilerplate\Core\Container;
-use WpPluginBoilerplate\Core\Plugin;
-use WpPluginBoilerplate\Core\PluginConfig;
 
 defined('ABSPATH') || exit;
 
 // Require autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
-/*
- * Initialize the plugin config information.
- *
- * Remember to update the version here for every release.
- *
- * @since 0.1.0
- */
-PluginConfig::init(
-    '0.1.0',
+// Initialize the app config information.
+AppConfig::init(
+    get_file_data(__FILE__, ['Version' => 'Version'])['Version'] ?: '0.1.0',
     __DIR__,
     __FILE__,
     'Wp Plugin Boilerplate',
@@ -46,27 +41,18 @@ PluginConfig::init(
     'wp-plugin-boilerplate',
 );
 
-/**
- * Get the plugin instance.
- *
- * If there is no running instance then initialize and assign it to the $instance.
- *
- * @since 0.1.0
- */
-function get_plugin(): Plugin {
-    static $instance = null;
+// Create the service container
+$container = new Container();
 
-    if (!$instance) {
-        // Setup plugin dependencies
-        $container = new Container();
+// If you have any services bind them to the container. Example:
+// $container->bind(ExampleService::class, ExampleService::create(...));
 
-        // Setup the plugin
-        $instance = new Plugin($container);
-        $instance->init();
-    }
+// Create the app
+$app = new App($container);
 
-    return $instance;
-}
+// Init the app
+$app->init();
 
-// Start the plugin
-$plugin = get_plugin();
+// Register controllers
+$app->register_controller(AssetController::create(...));
+$app->register_controller(BlockController::create(...));
