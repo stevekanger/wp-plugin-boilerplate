@@ -41,9 +41,9 @@ PluginConfig::init(
     '0.1.0',
     __DIR__,
     __FILE__,
-    'Wordpress Plugin Boilerplate',
-    'wordpress_plugin_boilerplate',
-    'wordpress-plugin-boilerplate',
+    'Wp Plugin Boilerplate',
+    'wp_plugin_boilerplate',
+    'wp-plugin-boilerplate',
 );
 
 /**

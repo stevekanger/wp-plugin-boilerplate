@@ -16,9 +16,9 @@ const config = {
    */
   blocks: {
     createBlock: {
-      namespace: 'worpdress-plugin-boilerplate',
+      namespace: 'wp-plugin-boilerplate',
       json: {
-        textdomain: 'wordpress-plugin-boilerplate',
+        textdomain: 'wp-plugin-boilerplate',
       },
     },
   },
