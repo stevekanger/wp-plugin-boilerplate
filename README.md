@@ -1,6 +1,6 @@
 # Wordpress plugin boilerplate
 
-**Plugins should now be scaffoled with the following** [Wp Dev Tools](https://github.com/stevekanger/wp-dev-tools)
+**Plugins should now be scaffold with the following instead of cloning this repository** [Wp Dev Tools](https://github.com/stevekanger/wp-dev-tools)
 
 Boilerplate wordpress plugin. This plugin encourages a modern structure and has support for autoloading via composer, docker, webpack, wordpress blocks and more.
 
