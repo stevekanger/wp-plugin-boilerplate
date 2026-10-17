@@ -33,12 +33,12 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // Initialize the app config information.
 AppConfig::init(
-    get_file_data(__FILE__, ['Version' => 'Version'])['Version'] ?: '0.1.0',
-    __DIR__,
-    __FILE__,
-    'Wp Plugin Boilerplate',
-    'wp_plugin_boilerplate',
-    'wp-plugin-boilerplate',
+    version: get_file_data(__FILE__, ['Version' => 'Version'])['Version'] ?: '0.1.0',
+    root_dir: __DIR__,
+    root_file: __FILE__,
+    title: 'Wp Plugin Boilerplate',
+    prefix: 'wp_plugin_boilerplate',
+    slug: 'wp-plugin-boilerplate',
 );
 
 // Create the service container
