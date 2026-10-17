@@ -4,7 +4,7 @@
 
 Boilerplate wordpress plugin. This plugin encourages a modern structure and has support for autoloading via composer, docker, webpack, wordpress blocks and more.
 
-### Project Structure
+## Project Structure
 
 All php files reside in `inc`. All `psr-4` classes will be autoloaded via `composer` from the `inc/app` folder. Controllers are your connection to wordpress by registering hooks, etc. Services are your business logic and can be bound and retrieved from the service container. Both Controllers and Services have access to the service container.
 
@@ -14,9 +14,18 @@ All raw js, css, and blocks reside in `src`. These are files that need to be bui
 
 ### Docker
 
-Docker set up to control the development environment. You must have `docker` and `docker-compose` installed.
+Docker ports and webpack proxies are set in `.env`. You can change those to your liking. Default is set to run on port 8000.
 
-Docker env variables for php and wordpress versions will be set in `.env`. The wordpress `debug.log` file from the docker container will be placed in the projects root directory.
+It's recommended but not required to set up a hostname in `/etc/hosts` on your local machine mapped to the docker port. This allows wordpress loopbacks to work (wp_cron etc.). Set this hostname to `DOCKER_EXTRA_HOST` and `BROWSER_SYNC_PROXY` in `.env`.
+
+You can now start your docker container.
+
+```bash
+docker compose up -d
+
+```
+
+If you setup a hostname navigate there in your browser. If not, and didn't change anything in `.env` go to `http://localhost:8000`. You can then run through the wordpress installation.
 
 ### Dev Scripts
 
