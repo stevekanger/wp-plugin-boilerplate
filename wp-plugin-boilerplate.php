@@ -54,5 +54,5 @@ $app = new App($container);
 $app->init();
 
 // Register controllers
-$app->register_controller(AssetController::create(...));
-$app->register_controller(BlockController::create(...));
+AssetController::create($container)->register();
+BlockController::create($container)->register();

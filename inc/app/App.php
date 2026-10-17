@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace WpPluginBoilerplate;
 
 use WpPluginBoilerplate\Config\AppConfig;
-use WpPluginBoilerplate\Core\AbstractController;
 use WpPluginBoilerplate\Core\Container;
 
 defined('ABSPATH') || exit;
@@ -49,27 +48,6 @@ final class App {
      */
     public function get_container(): Container {
         return $this->container;
-    }
- 
-    /**
-     * Creates a controller from the factory provided and calls register.
-     *
-     * @param callable $factory A function that returns an instance of the controller
-     *
-     * @since 0.1.0
-     */
-    public function register_controller(callable $factory): static {
-        $instance = $factory($this->container);
-
-        if (!$instance instanceof AbstractController) {
-            $instance_name = get_debug_type($instance);
-
-            throw new \RuntimeException("Attempt to register invalid controller '{$instance_name}'.");
-        }
-
-        $instance->register();
-
-        return $this;
     }
 
     /**
