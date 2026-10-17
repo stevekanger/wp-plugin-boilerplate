@@ -1,4 +1,7 @@
 {
+  "slug": "wp-plugin-boilerplate",
+  "prefix": "wp_plugin_boilerplate",
+  "phpNamespace": "WpPluginBoilerplate",
   "main": "wp-plugin-boilerplate.php",
   "files": {
     "dist": [
