@@ -22,8 +22,6 @@ declare(strict_types=1);
 namespace WpPluginBoilerplate;
 
 use WpPluginBoilerplate\Config\AppConfig;
-use WpPluginBoilerplate\Controllers\AssetController;
-use WpPluginBoilerplate\Controllers\BlockController;
 use WpPluginBoilerplate\Core\Container;
 
 defined('ABSPATH') || exit;
@@ -44,8 +42,11 @@ AppConfig::init(
 // Create the service container
 $container = new Container();
 
-// If you have any services bind them to the container. Example:
-// $container->bind(ExampleService::class, ExampleService::create(...));
+// Create the bootstrapper
+$bootstrap = new Bootstrap($container);
+
+// Populate container with services and shared dependencies
+$bootstrap->populate_container();
 
 // Create the app
 $app = new App($container);
@@ -53,6 +54,5 @@ $app = new App($container);
 // Init the app
 $app->init();
 
-// Register controllers
-AssetController::create($container)->register();
-BlockController::create($container)->register();
+// Create and register controllers
+$bootstrap->register_controllers();
