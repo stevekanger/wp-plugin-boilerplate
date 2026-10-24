@@ -4,43 +4,71 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate;
 
+use WpPluginBoilerplate\Config\BlockConfig;
 use WpPluginBoilerplate\Controllers\AssetController;
 use WpPluginBoilerplate\Controllers\BlockController;
-use WpPluginBoilerplate\Core\Container;
-use WpPluginBoilerplate\Services\ExampleService;
+use WpPluginBoilerplate\Controllers\PluginController;
+use WpPluginBoilerplate\Controllers\RestController;
+use WpPluginBoilerplate\Core\Facade;
 
 defined('ABSPATH') || exit;
 
+/**
+ * Boostrap class.
+ *
+ * @since 1.0.0
+ */
 final class Bootstrap {
     /**
-     * Set up bootstrap dependencies.
+     * Bootstrap class constructor.
      *
-     * @param Container $container The service container
+     * @param App $app The application instance
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
     public function __construct(
-        private Container $container,
+        private App $app,
     ) {
     }
 
     /**
-     * Populates the container with dependencies.
+     * Called after creating the app instance to setup the app.
      *
-     * @since 0.1.0
+     * @param App $app The app instance
+     *
+     * @since 1.0.0
      */
-    public function populate_container(): void {
-        // Example binding - replace with your own services.
-        $this->container->bind(ExampleService::class, ExampleService::create(...));
+    public static function boot(App $app): void {
+        Facade::set_container($app);
+
+        $bootstrap = new self($app);
+        $bootstrap->bind_dependencies();
+        $app->init();
+        $bootstrap->register_controllers();
     }
 
     /**
-     * Registers the controllers.
+     * Populates the container with dependencies (Configs, Services, etc).
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
-    public function register_controllers(): void {
-        AssetController::create($this->container)->register();
-        BlockController::create($this->container)->register();
+    public function bind_dependencies(): static {
+        $this->app->bind(BlockConfig::class, BlockConfig::make(...));
+
+        return $this;
+    }
+
+    /**
+     * Creates and registers the controllers.
+     *
+     * @since 1.0.0
+     */
+    public function register_controllers(): static {
+        AssetController::make($this->app)->register();
+        BlockController::make($this->app)->register();
+        PluginController::make($this->app)->register();
+        RestController::make($this->app)->register();
+
+        return $this;
     }
 }

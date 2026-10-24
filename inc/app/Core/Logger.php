@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  *
  * Utility class for logging text to files.
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
 final class Logger {
     /**
@@ -19,19 +19,20 @@ final class Logger {
      *
      * @param mixed ...$items Any item you want to log to the log file
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
     public static function debug(mixed ...$items): void {
         if (true === \WP_DEBUG) {
-            $hr_thick = "\n===========================================================================\n";
-            $hr_thin = "\n---------------------------------------------------------------------------\n";
+            $hr_thick = "\n===============================================================================\n";
+            $hr_thin = "\n-------------------------------------------------------------------------------\n";
 
             $backtrace = debug_backtrace();
             $caller = array_shift($backtrace);
-            $full_file = explode('/', $caller['file']);
-            $file = end($full_file);
+            $filepath = $caller['file'];
+            $filepath_exploded = explode('/', $filepath);
+            $filename = end($filepath_exploded);
             $line = strval($caller['line']);
-            $header = "File: {$file}\nLine: {$line}";
+            $header = "Filename: {$filename}\nLine: {$line}";
             $log = "{$hr_thick}{$header}{$hr_thin}";
 
             foreach ($items as $item) {

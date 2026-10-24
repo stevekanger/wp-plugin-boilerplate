@@ -7,27 +7,24 @@ namespace WpPluginBoilerplate\Core;
 /**
  * Container for services, etc.
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
-final class Container {
+class Container {
+    /** @var array<string, callable(self): mixed> */
     private array $bindings = [];
+
+    /** @var array<string, mixed> */
     private array $instances = [];
 
-    /**
-     * Get all bound IDs.
-     *
-     * @since 0.1.0
-     */
-    public function get_ids(): array {
-        return array_keys($this->bindings);
-    }
+    /** @var array<string, bool> */
+    private array $shared = [];
 
     /**
      * Check if a binding exists.
      *
-     * @param string $id The id to check
+     * @param string $id The resource id
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
     public function has(string $id): bool {
         return isset($this->bindings[$id]);
@@ -36,13 +33,15 @@ final class Container {
     /**
      * Bind to the container.
      *
-     * @param string $id Any string id to act as the key
+     * @param string $id The resource id
      * @param callable $factory A function that returns an instance
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
-    public function bind(string $id, callable $factory): static {
+    public function bind(string $id, callable $factory, bool $shared = true): static {
         $this->bindings[$id] = $factory;
+        $this->shared[$id] = $shared;
+        unset($this->instances[$id]);
 
         return $this;
     }
@@ -52,18 +51,24 @@ final class Container {
      *
      * @template T
      *
-     * @param class-string<T> $id The class id
+     * @param string|class-string<T> $id The resource id
      *
-     * @return T
+     * @return ($id is class-string<T> ? T : mixed)
      *
-     * @since 0.1.0
+     * @throws \RuntimeException if nothing is registered for $id
+     *
+     * @since 1.0.0
      */
     public function get(string $id): mixed {
-        if (!isset($this->bindings[$id])) {
+        if (!array_key_exists($id, $this->bindings)) {
             throw new \RuntimeException("No container binding found for {$id}");
         }
 
-        if (!isset($this->instances[$id])) {
+        if (!$this->shared[$id]) {
+            return $this->bindings[$id]($this);
+        }
+
+        if (!array_key_exists($id, $this->instances)) {
             $this->instances[$id] = $this->bindings[$id]($this);
         }
 

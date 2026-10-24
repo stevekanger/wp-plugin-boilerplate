@@ -4,54 +4,65 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate\Controllers;
 
-use WpPluginBoilerplate\Config\AppConfig;
-use WpPluginBoilerplate\Core\AbstractController;
+use WpPluginBoilerplate\App;
+use WpPluginBoilerplate\Config\BlockConfig;
 
 defined('ABSPATH') || exit;
 
 /**
  * Block Controller.
  *
- * This controller sets up your wordpress blocks and block related functions
- *
- * @since 0.1.0
+ * @since 1.0.0
  */
 final class BlockController extends AbstractController {
-    // Add any block slugs you want to register here
-    private const REGISTERED_BLOCKS = [];
+    /**
+     * BlockController class constructor.
+     *
+     * @param string $block_dir The directory the blocks are built to
+     * @param array $blocks List of registerable blocks
+     *
+     * @since 1.0.0
+     */
+    public function __construct(
+        private readonly string $block_dir,
+        private readonly array $blocks,
+    ) {
+    }
+
+    /**
+     * Creates an instance of the class.
+     *
+     * @param App $app The app instance
+     *
+     * @since 1.0.0
+     */
+    public static function make(App $app): static {
+        $config = $app->get(BlockConfig::class);
+
+        return new static(
+            block_dir: $config->block_dir,
+            blocks: $config->blocks
+        );
+    }
 
     /**
      * Register block hooks.
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
     public function register(): void {
-        add_action('init', [$this, 'register_all_blocks']);
-    }
-
-    /**
-     * Register single block.
-     *
-     * @param string $slug The blocks slug
-     *
-     * @since 0.1.0
-     */
-    public function register_block(string $slug): void {
-        $blocks_dir = AppConfig::root_dir('/build/blocks/');
-        $block_path = $blocks_dir . $slug;
-        register_block_type($block_path);
+        add_action('init', [$this, 'register_blocks']);
     }
 
     /**
      * Register all blocks.
      *
-     * Registers all blocks from the block-config['register']
-     *
-     * @since 0.1.0
+     * @since 1.0.0
      */
-    public function register_all_blocks(): void {
-        foreach (self::REGISTERED_BLOCKS as $slug) {
-            $this->register_block($slug);
+    public function register_blocks(): void {
+        foreach ($this->blocks as $slug) {
+            $block_path = $this->block_dir . '/' . $slug;
+            register_block_type($block_path);
         }
     }
 }

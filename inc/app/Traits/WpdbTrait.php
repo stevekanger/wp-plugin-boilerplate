@@ -9,13 +9,13 @@ defined('ABSPATH') || exit;
 /**
  * Allows access to the $wpdb instance.
  *
- * @since 0.1.0
+ * @since 1.0.0
  */
 trait WpdbTrait {
     /**
      * Gets the $wpdb instance.
      *
-     * @since 0.1.0
+     * @since 1.0.0
      */
     protected function wpdb(): \wpdb {
         global $wpdb;
