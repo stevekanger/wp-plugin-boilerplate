@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Author: Steve Kanger
  * Author URI:
  * Description: Wp plugin boilerplate.
- * Version: 0.1.0
+ * Version: 1.0.0
  * Requires at least: 7.1.3
  * Tested up to: 7.1.3
  * Requires PHP: 8.3
@@ -21,38 +21,29 @@ declare(strict_types=1);
 
 namespace WpPluginBoilerplate;
 
-use WpPluginBoilerplate\Config\AppConfig;
-use WpPluginBoilerplate\Core\Container;
-
 defined('ABSPATH') || exit;
 
 // Require autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
-// Initialize the app config information.
-AppConfig::init(
-    version: get_file_data(__FILE__, ['Version' => 'Version'])['Version'] ?: '0.1.0',
-    root_dir: __DIR__,
-    root_file: __FILE__,
-    title: 'Wp Plugin Boilerplate',
-    prefix: 'wp_plugin_boilerplate',
-    slug: 'wp-plugin-boilerplate',
-);
+// Define some app constants
+const APP_TITLE = 'Wp Plugin Boilerplate';
+const APP_PREFIX = 'wp_plugin_boilerplate';
+const APP_SLUG = 'wp-plugin-boilerplate';
+const APP_REST_VERSION = 'v1';
+const APP_ROOT_DIR = __DIR__;
+const APP_ROOT_FILE = __FILE__;
+const APP_BUILD_PATH = '/build';
+const APP_VIEW_PATH = '/inc/views';
 
-// Create the service container
-$container = new Container();
+/**
+ * Gets the application instance. Creates one if it doesn't already exist.
+ *
+ * @since 1.0.0
+ */
+function app(): App {
+    return App::instance();
+}
 
-// Create the bootstrapper
-$bootstrap = new Bootstrap($container);
-
-// Populate container with services and shared dependencies
-$bootstrap->populate_container();
-
-// Create the app
-$app = new App($container);
-
-// Init the app
-$app->init();
-
-// Create and register controllers
-$bootstrap->register_controllers();
+// Start the app
+app();
